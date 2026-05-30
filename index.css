@@ -1,0 +1,199 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Cairo:wght@400;600;700;900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", "Cairo", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  
+  --color-brand-50: #fef2f2;
+  --color-brand-100: #fee2e2;
+  --color-brand-200: #fecaca;
+  --color-brand-300: #fca5a5;
+  --color-brand-400: #f87171;
+  --color-brand-500: #C74634; /* Oracle Redwood Primary */
+  --color-brand-600: #b91c1c;
+  --color-brand-700: #991b1b;
+  --color-brand-800: #7f1d1d;
+  --color-brand-900: #450a0a;
+
+  @keyframes bounce-short {
+    0%, 100% { transform: translateY(-15%); animation-timing-function: cubic-bezier(0.8,0,1,1); }
+    50% { transform: none; animation-timing-function: cubic-bezier(0,0,0.2,1); }
+  }
+  
+  --animate-bounce-short: bounce-short 1s infinite;
+  --animate-spin-slow: spin 8s linear infinite;
+  
+  @keyframes holographic {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  @keyframes guilloche-rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  @keyframes pulse-soft {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 0.8; }
+  }
+}
+
+.animate-guilloche {
+  animation: guilloche-rotate 20s linear infinite;
+}
+
+.animate-pulse-soft {
+  animation: pulse-soft 3s ease-in-out infinite;
+}
+
+.holographic-shimmer {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(99, 102, 241, 0.05) 25%,
+    rgba(255, 255, 255, 0) 50%,
+    rgba(168, 85, 247, 0.05) 75%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background-size: 400% 400%;
+  animation: holographic 8s ease infinite;
+}
+
+@layer base {
+  body {
+    @apply bg-stone-50 text-stone-900 antialiased transition-all duration-300;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  /* High Contrast Mode */
+  .high-contrast {
+    @apply bg-black text-white;
+    --brand-50: #000;
+    --brand-100: #000;
+    --brand-200: #000;
+    --brand-300: #fff;
+    --brand-400: #fff;
+    --brand-500: #fff;
+    --brand-600: #fff;
+    --brand-700: #fff;
+    --brand-800: #fff;
+    --brand-900: #fff;
+  }
+  
+  .high-contrast .glass-card, 
+  .high-contrast .bg-white,
+  .high-contrast .bg-stone-50 {
+    @apply bg-black border-2 border-white text-white shadow-none;
+  }
+  
+  .high-contrast .text-slate-900,
+  .high-contrast .text-stone-900,
+  .high-contrast .text-stone-800,
+  .high-contrast .text-slate-800 {
+    @apply text-white;
+  }
+  
+  .high-contrast .text-stone-400,
+  .high-contrast .text-slate-400,
+  .high-contrast .text-stone-500,
+  .high-contrast .text-slate-500 {
+    @apply !text-white !opacity-100;
+  }
+
+  .high-contrast button,
+  .high-contrast a {
+    @apply !border-2 !border-white;
+  }
+
+  .high-contrast .bg-stone-50\/50,
+  .high-contrast .bg-slate-50 {
+    @apply bg-zinc-900;
+  }
+
+  /* Large Text Mode */
+  .large-text {
+    font-size: 1.15rem;
+  }
+
+  /* Reduced Motion */
+  .reduced-motion *,
+  .reduced-motion *:before,
+  .reduced-motion *:after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  /* Accessibility: Visible Focus for Keyboard Users */
+  :focus-visible {
+    @apply outline-none ring-4 ring-brand-500/30 ring-offset-2;
+  }
+}
+
+@layer utilities {
+  /* Screen Reader Only */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-white/90 backdrop-blur-md border border-stone-200 shadow-sm rounded-2xl;
+  }
+  
+  .btn-primary {
+    @apply bg-[#C74634] hover:bg-[#A53A2A] text-white px-4 py-2 rounded-lg transition-all active:scale-95 font-semibold;
+  }
+  
+  .input-field {
+    @apply w-full px-4 py-2 bg-white border border-stone-200 rounded-lg focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 outline-none transition-all;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #d6d3d1;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a29e;
+}
+
+/* Print Styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+  .print-area {
+    display: block !important;
+    visibility: visible !important;
+  }
+  body {
+    background: white !important;
+  }
+  .print-break-inside-avoid {
+    break-inside: avoid;
+  }
+}

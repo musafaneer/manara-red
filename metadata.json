@@ -1,0 +1,8 @@
+{
+  "name": "Oracle Campus Management System",
+  "description": "An enterprise-grade campus management solution for Libyan Higher Education. Features advanced student administration, academic planning, postgraduate tracking, and regulatory compliance monitoring as per Unit 4 standards.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
